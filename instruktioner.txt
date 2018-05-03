@@ -1,0 +1,76 @@
+Lab 32 - React lifting state
+Deadline är 2018-05-14 kl 15:55. Uppgiften ska utföras av två eller tre personer och redovisas i skolan.
+Ni ska göra en webbapp som använder React för att rendera flera nästlade komponenter, med hjälp av state och props. Komponenterna ska utbyta information enligt tekniken "lifting state", med props och events.
+Uppgift och kravspec
+Ni ska skriva en quiz-app, där användare kan tävla om högst poäng genom att svara rätt på varierade frågor. Appen ska använda firebase för autentisering med federerad identitet, och databas för att spara frågor och användares resultat.
+
+Det ska finnas tre menyalternativ: tävlingen, high scores och profil.
+
+När användaren kommer till appen ska man mötas av en startskärm. Om man sedan väljer att tävla, så kommer man att få ett lagom antal frågor. Frågorna visas en i taget. Man ska kunna se hur långt man har kvar (exempel: "fråga 3 av 30") men man ska inte kunna backa eller gå framåt utan att svara. När spelaren väljer ett alternativ så ska det visas vad som var rätt svar. Om spelaren gissade rätt ska poängen visas. Sedan visas nästa fråga. När alla frågor har visats är omgången avslutad. Spelarens slutliga poäng visas och man har möjlighet att börja om.
+
+Användaren ska kunna se "high scores" från tidigare tävlanden.
+
+Användaren ska kunna ändra sina profiluppgifter. När man autentiseras ska användaren automatiskt tilldelas ett namn, men man ska kunna byta det från profilsidan.
+
+Det är tillåtet för flera grupper att samarbeta med databasen, så att ni kan göra fler frågor. Skapa ett nytt google-konto som ni delar på och använd firebase på det. Tänk på att det här projektet är något ni kan göra riktigt imponerande och visa upp på er LinkedIn.
+Tillval
+combo - mer poäng om man svarar rätt på flera frågor på rad
+minuspoäng för fel svar
+välja kategori - fotboll, star wars, programmering etc.
+frågor slumpas ur en pool, så att det kan bli olika frågor varje gång
+nytt menyalternativ för användare, där man kan lägga in egna frågor
+ljudeffekter! (som går att stänga av)
+Bedömningskriterier
+För G
+användare ska kunna autentisera sig med federerad identitet
+användare ska kunna byta namn
+alla användares poäng ska sparas
+göra quizzen, minst tre frågor i varje kategori
+se tidigare spelares poäng
+komponenter använder "lifting state" för att kommunicera
+
+För VG
+frågorna är tidsbegränsade - efter X sekunder visas svaret och spelaren räknas som att man svarat fel
+det går att byta till att visa high score mitt under ett quiz, utan att tappa sina svar
+appen är publicerad online
+appen är användarvänlig
+appen är utförligt testad, gärna på en ovan datoranvändare
+minst tre tillval implementerade
+Lab 32 - React lifting state
+Deadline är 2018-05-14 kl 15:55. Uppgiften ska utföras av två eller tre personer och redovisas i skolan.
+Ni ska göra en webbapp som använder React för att rendera flera nästlade komponenter, med hjälp av state och props. Komponenterna ska utbyta information enligt tekniken "lifting state", med props och events.
+Uppgift och kravspec
+Ni ska skriva en quiz-app, där användare kan tävla om högst poäng genom att svara rätt på varierade frågor. Appen ska använda firebase för autentisering med federerad identitet, och databas för att spara frågor och användares resultat.
+
+Det ska finnas tre menyalternativ: tävlingen, high scores och profil.
+
+När användaren kommer till appen ska man mötas av en startskärm. Om man sedan väljer att tävla, så kommer man att få ett lagom antal frågor. Frågorna visas en i taget. Man ska kunna se hur långt man har kvar (exempel: "fråga 3 av 30") men man ska inte kunna backa eller gå framåt utan att svara. När spelaren väljer ett alternativ så ska det visas vad som var rätt svar. Om spelaren gissade rätt ska poängen visas. Sedan visas nästa fråga. När alla frågor har visats är omgången avslutad. Spelarens slutliga poäng visas och man har möjlighet att börja om.
+
+Användaren ska kunna se "high scores" från tidigare tävlanden.
+
+Användaren ska kunna ändra sina profiluppgifter. När man autentiseras ska användaren automatiskt tilldelas ett namn, men man ska kunna byta det från profilsidan.
+
+Det är tillåtet för flera grupper att samarbeta med databasen, så att ni kan göra fler frågor. Skapa ett nytt google-konto som ni delar på och använd firebase på det. Tänk på att det här projektet är något ni kan göra riktigt imponerande och visa upp på er LinkedIn.
+Tillval
+combo - mer poäng om man svarar rätt på flera frågor på rad
+minuspoäng för fel svar
+välja kategori - fotboll, star wars, programmering etc.
+frågor slumpas ur en pool, så att det kan bli olika frågor varje gång
+nytt menyalternativ för användare, där man kan lägga in egna frågor
+ljudeffekter! (som går att stänga av)
+Bedömningskriterier
+För G
+användare ska kunna autentisera sig med federerad identitet
+användare ska kunna byta namn
+alla användares poäng ska sparas
+göra quizzen, minst tre frågor i varje kategori
+se tidigare spelares poäng
+komponenter använder "lifting state" för att kommunicera
+
+För VG
+frågorna är tidsbegränsade - efter X sekunder visas svaret och spelaren räknas som att man svarat fel
+det går att byta till att visa high score mitt under ett quiz, utan att tappa sina svar
+appen är publicerad online
+appen är användarvänlig
+appen är utförligt testad, gärna på en ovan datoranvändare
+minst tre tillval implementerade
