@@ -1,8 +1,8 @@
 body {
   background: #d5d5d5;
   font-family: arial;
-  color: #FAFAFA;
-  text-transform: uppercase;
+  color: #FAFAFA
+  /*text-transform: uppercase;*/
 }
 
 .container {
@@ -34,4 +34,3 @@ body {
   font-weight: normal;
   text-decoration: none;
 }
-
