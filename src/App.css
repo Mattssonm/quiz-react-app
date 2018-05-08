@@ -1,3 +1,40 @@
+body {
+  background: #d5d5d5;
+  font-family: arial;
+  color: #FAFAFA;
+  text-transform: uppercase;
+}
+
+.container {
+  background: #333;
+  width: 700px;
+  margin: 70px auto;
+  box-shadow: 0 4px 0px #333;
+  border-radius: 15px;
+}
+
+#header {
+  text-align: center;
+  display: flex;
+  background-color: #222;
+  border-radius: 15px 15px 0 0;
+  border-bottom: solid 2px #444;
+}
+
+#main {
+  padding: 15px;
+}
+
+.nav {
+  padding: 20px;
+  color: #FAFAFA;
+  flex-grow: 1;
+  font-size: 1.2em;
+  letter-spacing: 2px;
+  font-weight: normal;
+  text-decoration: none;
+}
+
 h1 {
   text-align: center;
 }

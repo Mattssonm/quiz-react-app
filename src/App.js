@@ -12,19 +12,19 @@ import Profile from './components/profile';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="maincontainer">
-        <header id="headercontainer">
-          <NavLink to="/"><button className="button">Home</button></NavLink>
-          <NavLink to="/quiz"><button className="button">Quiz</button></NavLink>
-          <NavLink to="/highScores"><button className="button">High Scores</button></NavLink>
-          <NavLink to="/profile"><button className="button">Profile</button></NavLink>
-          <hr/>
+      <div className="container">
+        <header id="header">
+          <NavLink to="/" className="nav">Quiz</NavLink>
+          <NavLink to="/highScores" className="nav">High Scores</NavLink>
+          <NavLink to="/profile" className="nav">Profile</NavLink>
+          <a href="#" className="nav">Login</a>
         </header>
         <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/quiz" component={Quiz}/>
+        <div id="main">
+          <Route path="/" exact component={Quiz}/>
           <Route path="/highScores" component={HighScores}/>
           <Route path="/profile" component={Profile}/>
+        </div>
         </Switch>
       </div>
     </BrowserRouter>
