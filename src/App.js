@@ -1,10 +1,9 @@
 import React from 'react';
-import ReactDOM from  'react-dom';
+//import ReactDOM from  'react-dom';
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
 import './App.css';
 
 // COMPONENTS
-import Home from './components/home';
 import Quiz from './components/quiz';
 import HighScores from './components/highScores'
 import Profile from './components/profile';
@@ -17,7 +16,7 @@ const App = () => {
           <NavLink to="/" className="nav">Quiz</NavLink>
           <NavLink to="/highScores" className="nav">High Scores</NavLink>
           <NavLink to="/profile" className="nav">Profile</NavLink>
-          <a href="#" className="nav">Login</a>
+          <a href="/" className="nav">Login</a>
         </header>
         <div id="main">
           <Switch>

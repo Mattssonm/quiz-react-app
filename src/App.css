@@ -7,7 +7,7 @@ body {
 
 .container {
   background: #333;
-  width: 700px;
+  width: 600px;
   margin: 70px auto;
   box-shadow: 0 4px 0px #333;
   border-radius: 15px;
@@ -35,3 +35,14 @@ body {
   text-decoration: none;
 }
 
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  
+  #header {
+    flex-direction: column;
+  }
+}
