@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from  'react-dom';
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
 import './App.css';
@@ -19,13 +19,13 @@ const App = () => {
           <NavLink to="/profile" className="nav">Profile</NavLink>
           <a href="#" className="nav">Login</a>
         </header>
-        <Switch>
         <div id="main">
-          <Route path="/" exact component={Quiz}/>
-          <Route path="/highScores" component={HighScores}/>
-          <Route path="/profile" component={Profile}/>
+          <Switch>
+            <Route path="/" exact component={Quiz}/>
+            <Route path="/highScores" component={HighScores}/>
+            <Route path="/profile" component={Profile}/>
+          </Switch>
         </div>
-        </Switch>
       </div>
     </BrowserRouter>
   )
