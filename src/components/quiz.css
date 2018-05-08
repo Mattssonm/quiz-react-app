@@ -1,0 +1,55 @@
+.quizInfo {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.quizInfo li {
+  display: inline;
+  padding-right: 20px;
+}
+
+.altDiv input {
+  display: none;
+}
+
+.altDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.altDiv label {
+  padding: 20px;
+  border: solid 1px white;
+  margin-bottom: 10px;
+}
+
+.altDiv input:checked + label {
+  background-color: green;
+}
+
+#quizContainer {
+  position: relative;
+  padding-bottom: 45px;
+}
+
+.btn {
+  position: absolute;
+  background-color: #222;
+  font-family: arial;
+  color: #FAFAFA;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: none;
+  padding: 10px;
+  font-size: 1.2em;
+}
+
+#cancelBtn {
+  right: 0;
+  top: 0;
+}
+
+input[type=submit] {
+  right: 0;
+}
