@@ -1,31 +1,40 @@
 import React from 'react';
 import './quiz.css';
+import QuizInfo from './quizComponents/quizInfo.js'
+import Question from './quizComponents/question.js'
+import ChooseCategory from './quizComponents/chooseCategory.js'
 
-function Quiz(props) {
-  return (
-    <div id="quizContainer">
-      <h3>What is the answer to this question?</h3>
-      <ul className="quizInfo">
-        <li>Timer: 60</li>
-        <li>Totalpoints: 100</li> 
-        <li>Combo: 3 x</li>
-      </ul>
-      <div className="altDiv">
-        <input type="radio" name="alts" id="alt1"/>
-        <label htmlFor="alt1">alt1</label>
-        <input type="radio" name="alts" id="alt2"/>
-        <label htmlFor="alt2">alt2</label>
-        <input type="radio" name="alts" id="alt3"/>
-        <label htmlFor="alt3">alt3</label>
-        <input type="radio" name="alts" id="alt4"/>
-        <label htmlFor="alt4">alt4</label>
+let quizHtml = (
+  <div id="quizContainer">
+    <button id="cancelBtn" className="btn">X</button>
+    <QuizInfo points={100} />
+    <Question questObj={{
+      answer: "Red Hot Chilli Peppers",
+      question: "Which of the following bands was NOT one of the Big Four of Grunge in the 1990s?",
+      wrongAlts: {
+        alt1: "Alice in Chains",
+        alt2: "Nirvana",
+        alt3: "Pearl Jam"
+      }
+    }} />
+  </div>
+);
+
+class Quiz extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quizChoice: "",
+    };
+  }
+  render() {
+    return (
+      <div id="quizPicker">
+        <ChooseCategory />
       </div>
-      <button id="cancelBtn" className="btn">X</button>
-      <input  className="btn" type="submit" value="Submit"/>
-    </div>
-
-    //on submit or no more time, highlight correct answer
-  )
+      //on submit or no more time, highlight correct answer
+    );
+  }
 }
 
 export default Quiz;
