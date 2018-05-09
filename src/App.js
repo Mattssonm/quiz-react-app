@@ -7,6 +7,7 @@ import './App.css';
 import Quiz from './components/quiz';
 import HighScores from './components/highScores'
 import Profile from './components/profile';
+import Login from './components/login';
 
 const App = () => {
   return (
@@ -16,13 +17,14 @@ const App = () => {
           <NavLink to="/" className="nav">Quiz</NavLink>
           <NavLink to="/highScores" className="nav">High Scores</NavLink>
           <NavLink to="/profile" className="nav">Profile</NavLink>
-          <a href="/" className="nav">Login</a>
+          <NavLink to="/login" className="nav">Login</NavLink>
         </header>
         <div id="main">
           <Switch>
             <Route path="/" exact component={Quiz}/>
             <Route path="/highScores" component={HighScores}/>
             <Route path="/profile" component={Profile}/>
+            <Route path="/login" component={Login} />
           </Switch>
         </div>
       </div>
