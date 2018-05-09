@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
+import highScores from './highScores.css'
+import HighscoreEntries from './highscoreEntries';
+
 
 function HighScores(props) {
   return (
-    <h1>High Scores</h1>
+    <div>
+      <h1> High Scores</h1>
+      <div className = "fullHighContainer">
+        <HighscoreEntries/>
+        <HighscoreEntries/>
+        <HighscoreEntries/>
+      </div>
+    </div>
   )
 }
+
+
 
 export default HighScores;
