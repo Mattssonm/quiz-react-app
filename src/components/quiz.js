@@ -3,7 +3,7 @@ import './quiz.css';
 import QuizInfo from './quizComponents/quizInfo.js'
 import Question from './quizComponents/question.js'
 import ChooseCategory from './quizComponents/chooseCategory.js'
-import { firebase, firebaseDB } from '../firebase';
+import { firebase, firebaseDB } from '../firebase.js';
 
 class Quiz extends React.Component {
   constructor(props) {
@@ -14,7 +14,9 @@ class Quiz extends React.Component {
       currentQuestion: {},
       questionNumber: 1,
       totalPoints: 0,
-      combo: 1
+      combo: 1,
+      timerIsRunning: false,
+      remainingTime: 60,
     };
   }
 
@@ -22,6 +24,7 @@ class Quiz extends React.Component {
   recieveAnswerSubmit = answer => {
     this.evaluateAnswer(answer);
     // Here you could store number of correct and wrong answers, if you like.
+    this.stopTimer();
   }
 
   //check if answer is correct and handle points, combo
@@ -53,9 +56,9 @@ class Quiz extends React.Component {
 
   //Recieve nextQuestion call from question.js, change state and start new question
   nextQuestion = () => {
-    console.log("nextQuestion runs");
     this.setState({
-      questionNumber: this.state.questionNumber + 1
+      questionNumber: this.state.questionNumber + 1,
+      remainingTime: 60
     }, this.startQuiz)
   }
 
@@ -78,6 +81,7 @@ class Quiz extends React.Component {
       }
     })
     }.bind(this));
+    this.startTimer();
   }
 
   quitQuiz = () => {
@@ -88,12 +92,59 @@ class Quiz extends React.Component {
       currentQuestion: {},
       questionNumber: 1,
       totalPoints: 0,
-      combo: 1
+      combo: 1,
+      timerIsRunning: false,
+      remainingTime: 60,
     })
   }
 
-  recieveTimeIsUp = () => {
+  timeIsUp = () => {
     console.log("timeIsUp")
+  }
+
+  //----------timer functions -------
+
+
+  onTick = () => {
+    if (this.state.timerIsRunning) {
+      this.setState({
+        remainingTime: this.state.remainingTime - 1
+      })
+    }
+    //if 60 seconds has passed
+    if (this.state.remainingTime === 0) {
+      this.stopTimer();
+      clearInterval(this.interval);
+      this.timeIsUp();
+    }
+  }
+
+  startTimer = () => {
+    this.setState({
+      timerIsRunning: true,
+    })
+  }
+
+  stopTimer = () => {
+    this.setState({
+        timerIsRunning: false
+      })
+  }
+
+  componentDidMount = () => {
+    this.interval = setInterval(this.onTick, 1000);
+    // var state = this.props.savedQuizState;
+    // if (state) {
+    //   this.setState(state);
+    // }
+    const loadedState = JSON.parse(localStorage.getItem('quizState'))
+    this.setState(loadedState)
+  }
+
+  componentWillUnmount = () => {
+    //this.props.sendQuizState(this.state)
+    clearInterval(this.interval);
+    localStorage.setItem('quizState', JSON.stringify(this.state))
   }
 
   render() {
@@ -109,8 +160,7 @@ class Quiz extends React.Component {
           <QuizInfo
             points={this.state.totalPoints}
             combo={this.state.combo}
-            sendTimeIsUp={this.recieveTimeIsUp}
-            questionNumber={this.questionNumber}
+            timer={this.state.remainingTime}
           />
           <Question
             callNextQuestion={this.nextQuestion}
