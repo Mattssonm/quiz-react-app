@@ -1,14 +1,13 @@
 import * as firebase from 'firebase';
 
-
 var config = {
-    apiKey: "AIzaSyASziEYwx8auNaAiyBfLL6fn7LG4QWHqQE",
-    authDomain: "forms-test-4b13c.firebaseapp.com",
-    databaseURL: "https://forms-test-4b13c.firebaseio.com",
-    projectId: "forms-test-4b13c",
-    storageBucket: "forms-test-4b13c.appspot.com",
-    messagingSenderId: "697401960246"
-  };
+   apiKey: "AIzaSyDAfMpCzeSjTkWtvSwBAnrUIRL12wz9Wbg",
+   authDomain: "quiz-react-app-4412.firebaseapp.com",
+   databaseURL: "https://quiz-react-app-4412.firebaseio.com",
+   projectId: "quiz-react-app-4412",
+   storageBucket: "quiz-react-app-4412.appspot.com",
+   messagingSenderId: "237109571153"
+ };
   firebase.initializeApp(config);
 
 const firebaseDB = firebase.database();
