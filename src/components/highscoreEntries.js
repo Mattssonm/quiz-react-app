@@ -4,7 +4,7 @@ function HighscoreEntries(props) {
   return (
       <div className = "highContainer"> 90s Rock Highscores
         <div className = "highScoreOne">
-          <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg"/>
+          <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg" alt=""/>
           <div className = "nameDiv">
           Okami Goodgame
           </div>
@@ -13,7 +13,7 @@ function HighscoreEntries(props) {
           </div>
         </div>
         <div className = "highScoreOne">
-          <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg"/>
+          <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg" alt=""/>
           <div className = "nameDiv">
           Okami Goodgame
           </div>
@@ -22,7 +22,7 @@ function HighscoreEntries(props) {
           </div>
         </div>
         <div className = "highScoreOne">
-          <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg"/>
+          <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg" alt=""/>
           <div className = "nameDiv">
           Okami Goodgame
           </div>
