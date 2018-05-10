@@ -1,33 +1,61 @@
 import React, { Component } from 'react';
-import { firebase, googleAuth } from '../firebase';
+import { firebase, googleAuth, firebaseDB } from '../firebase';
 
 class Login extends Component {
 
     state = {
-        status:false,
+        user:null,
         displayName: '',
         email: '',
         photo: '',
-        id: ''
+        id: '',
+        users: []
     }
 
     signIn = () => {
         firebase.auth().signInWithPopup(googleAuth)
+        .then((result) => {
+            console.log(result.user)
+            const user = result.user;
+            this.setState({
+                user
+            })
+        firebaseDB.ref('user').once("value", (snapshot) => {
+
+            let obj = snapshot.val();
+
+            for(let prop in obj) {
+                this.setState(prevState => ({
+                    users: [...prevState.users, prop]
+                }))
+            }
+        })
+           firebaseDB.ref(`user/ + ${user.uid}`).set({
+               id: user.uid,
+               name: user.displayName,
+               email: user.email,
+               photo: user.photoURL
+            }); // I added user
+            console.log('user added');
+        })
+        
+       
     }
 
     signOut = () => {
         firebase.auth().signOut()
+        this.setState({
+            user: null
+        })
     }
 
     componentDidMount(){
         firebase.auth().onAuthStateChanged((user)=>{
-            this.setState({
-                status: user ? false : true,
-                displayName: user.displayName,
-                email: user.email,
-                photo: user.photoURL,
-                id: user.uid
-            })
+         if(user){
+             this.setState({
+                 user
+             })
+         }
         
         })
     }
@@ -38,11 +66,10 @@ class Login extends Component {
                 <h1>Sign up</h1>
                 <h2>Welcome {this.state.displayName}</h2>
                 <div>{this.state.email}</div>
-                <img src={this.state.photo} />
-                { this.state.status ?
-                    <button onClick={ this.signIn }>Login</button>
+                { this.state.user ?
+                    <button onClick={ this.signOut }>Logout</button>
                     :
-                    <button onClick={ this.signOut }> Logout </button>
+                    <button onClick={ this.signIn }> Login </button>
                 }
             </div>
         )
