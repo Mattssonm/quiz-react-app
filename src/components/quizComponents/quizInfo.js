@@ -10,19 +10,22 @@ class QuizInfo extends React.Component {
       previousTime: 0,
     }
   }
+  //start interval on mount
   componentDidMount() {
     this.interval = setInterval(this.onTick, 100);
     this.startTimer();
   }
-  
+
+  //reset on unmount
   componentWillUnmount() {
     clearInterval(this.interval);
   }
-  
+
   onTick = () => {
     if (this.state.timerIsRunning) {
       let now = Date.now();
       this.setState({
+        //To calculate time more accurately, use Date to calulate how many milliseconds has passed on each tick
         previousTime: now,
         elapsedTime: this.state.elapsedTime + (now - this.state.previousTime),
       })
@@ -31,12 +34,19 @@ class QuizInfo extends React.Component {
     if (this.state.elapsedTime > 60000) {
       this.stopTimer();
       clearInterval(this.interval);
+      this.TimeIsUp();
     }
   }
-  
-  startTimer() {
+
+  //Inform quiz.js that the time is up
+  TimeIsUp = () => {
+    this.props.sendTimeIsUp();
+  }
+
+  startTimer = () => {
     this.setState({
       timerIsRunning: true,
+      //set first previousTime
       previousTime: Date.now()
     })
   }
@@ -55,7 +65,7 @@ class QuizInfo extends React.Component {
         <li>Timer: {60 - seconds}</li>
       </ul>
     );
-  } 
+  }
 }
 
 QuizInfo.propTypes = {
