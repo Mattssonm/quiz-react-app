@@ -1,7 +1,3 @@
-#quizPicker {
-  
-}
-
 .quizInfo {
   list-style: none;
   margin-left: 0;
@@ -29,6 +25,14 @@
 }
 
 .altDiv input:checked + label {
+  border: solid 3px yellow;
+}
+
+.wrong {
+  background-color: red;
+}
+
+.correct {
   background-color: green;
 }
 
