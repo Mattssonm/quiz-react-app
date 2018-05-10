@@ -30,7 +30,7 @@ class Question extends React.Component {
     //else if all questions has been answered see results
     } else if (this.state.buttonTxt === "See Results") {
       //Do something to submit the results to database and show user the results
-      console.log("See Results")
+      this.props.resultChange();
     //else buttonTxt === "Next"
     } else {
       this.props.callNextQuestion();

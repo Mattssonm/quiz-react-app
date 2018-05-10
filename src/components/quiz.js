@@ -4,6 +4,7 @@ import QuizInfo from './quizComponents/quizInfo.js'
 import Question from './quizComponents/question.js'
 import ChooseCategory from './quizComponents/chooseCategory.js'
 import { firebase, firebaseDB } from '../firebase';
+import QuizResult from './quizComponents/quizResult.js';
 
 class Quiz extends React.Component {
   constructor(props) {
@@ -14,7 +15,9 @@ class Quiz extends React.Component {
       currentQuestion: {},
       questionNumber: 1,
       totalPoints: 0,
-      combo: 1
+      combo: 1,
+      rightAnswers: 0,
+      resultDisplay: false,
     };
   }
 
@@ -31,6 +34,7 @@ class Quiz extends React.Component {
       this.setState({
         totalPoints: this.state.totalPoints + (100 * this.state.combo),
         combo: this.state.combo + 1,
+        rightAnswers: this.state.rightAnswers + 1,
       })
     //else remove 50 points and set combo back to 1
     } else {
@@ -88,17 +92,23 @@ class Quiz extends React.Component {
       currentQuestion: {},
       questionNumber: 1,
       totalPoints: 0,
-      combo: 1
+      combo: 1,
+      rightAnswers: 0,
+      resultDisplay: false,
     })
   }
 
   recieveTimeIsUp = () => {
     console.log("timeIsUp")
   }
+  resultChange = () => {
+    this.setState({resultDisplay: !this.state.resultDisplay});
+    console.log("this is run");
+  }
 
   render() {
     //if quiz started, render question
-    if (this.state.quizStarted) {
+    if (this.state.quizStarted && !this.state.resultDisplay) {
       return (
         <div id="quizContainer">
           <button
@@ -117,11 +127,22 @@ class Quiz extends React.Component {
             sendAnswerSubmit={this.recieveAnswerSubmit}
             questObj={this.state.currentQuestion}
             questionNumber={this.state.questionNumber}
+            resultChange={this.resultChange}
           />
         </div>
       )
     //else show chooseCategory
-    } else {
+  } else if (this.state.resultDisplay) {
+    return (
+      <div id="quizResults">
+        <QuizResult totalPoints={this.state.totalPoints}
+        rightAnswers={this.state.rightAnswers}
+        questionCount={this.state.questionNumber}
+        quitQuiz={this.quitQuiz}/>
+      </div>
+      )
+    }
+    else {
       return (
         <div id="quizPicker">
           <ChooseCategory
@@ -129,7 +150,10 @@ class Quiz extends React.Component {
           />
         </div>
       )
-    }
+
+  }
+
+
   }
 } //class
 
