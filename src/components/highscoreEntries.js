@@ -5,9 +5,8 @@ class HighscoreEntries extends React.Component {
     super(props);
   }
   render(){
-    console.log(this.props.highscores)
     return (
-        <div className = "highContainer"> 90s Rock Highscores
+        <div className = "highContainer"> {this.props.rockKind} Rock Highscores
           <div className = "highScoreOne">
             <img src="https://i.pinimg.com/736x/5b/91/00/5b91000392c81eb72e26ba7253e3d502--manga-anime-anime-art.jpg" alt=""/>
             <div className = "nameDiv">
@@ -36,7 +35,7 @@ class HighscoreEntries extends React.Component {
             </div>
           </div>
           <div className = "selfDiv">
-            Own: 200
+            Own: {this.props.selfScore}
           </div>
         </div>
     )}
