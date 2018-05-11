@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-function Profile(props) {
-  return (
-    <h1>Profile</h1>
-  )
+class Profile extends Component {
+
+
+  render() {
+    return (
+      <div>
+        {this.props.user.displayName}
+      </div>
+    );
+  }
 }
 
 export default Profile;
