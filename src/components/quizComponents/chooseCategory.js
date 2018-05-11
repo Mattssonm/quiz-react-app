@@ -4,7 +4,7 @@ class ChooseCategory extends React.Component {
   constructor(props){
     super(props)
   }
-  
+
   clickHandler = event => {
     let eventTarget = event.target.innerHTML;
     let choice;
@@ -16,7 +16,7 @@ class ChooseCategory extends React.Component {
       choice = "rock70";
     }
     this.props.chooseCategory(choice);
-  }  
+  }
   render() {
     return (
       <div id="categoryContainer">

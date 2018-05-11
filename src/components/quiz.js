@@ -96,6 +96,7 @@ class Quiz extends React.Component {
       timerIsRunning: false,
       remainingTime: 60,
     })
+    localStorage.removeItem('quizState');
   }
 
   timeIsUp = () => {
