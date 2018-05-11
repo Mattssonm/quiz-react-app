@@ -68,14 +68,14 @@ const App = (props) => {
           <Switch>
             <Route path="/" exact component={Quiz}/>
             <Route path="/highScores" component={HighScores}/>
-            <Route path="/profile" component={Profile}/>
+  <Route path="/profile" render={(user) => <Profile {...props} user={props.user}/>}/>
             <Route path="/login" component={Login} />
           </Switch>
         </div>
       </div>
     </BrowserRouter>
   )
-}
+}   
 
 
 firebase.auth().onAuthStateChanged((user)=>{
