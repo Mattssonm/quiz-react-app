@@ -29,12 +29,17 @@ class HighScores extends React.Component {
       })
     }
     firebaseDB.ref().once('value', (snapshot) => {
+      user = " + " + firebase.auth().currentUser.uid;
       var snapVal = snapshot.val();
-      console.log(snapshot.val());
       this.setState({
         highscore90: snapVal.quiz.rock90.highscore,
         highscore80: snapVal.quiz.rock80.highscore,
-        highscore70: snapVal.quiz.rock70.highscore})
+        highscore70: snapVal.quiz.rock70.highscore,
+      selfScore: {
+        rock90: snapVal.user[user].quizzestaken.rock90.highscore,
+        rock80: snapVal.user[user].quizzestaken.rock80.highscore,
+        rock70: snapVal.user[user].quizzestaken.rock70.highscore,
+      }})
     })
 
   }
