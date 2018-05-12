@@ -6,12 +6,21 @@ class QuizResult extends React.Component {
   }
 
   render() {
+    let user = " + " + this.props.currentUser.uid;
+    let takenQuiz = this.props.takenQuiz;
+    //console.log(this.props.takenQuiz)
+    this.props.firebase.ref().once("value", function(snapshot){
+      console.log(snapshot.val());
+      console.log(snapshot.val().user[user]);
+    })
+    this.props.firebase.ref("/user/" + user + "/quizzestaken/" + takenQuiz).push({points: this.props.totalPoints,
+    rightAnswers: this.props.rightAnswers})
     return (
       <div>
         <div className="loggedInInfo">
-          <img alt="Logged in pic here"/>
+          <img src={this.props.currentUser.photoURL} alt="Logged in pic here"/>
           <div>
-            Player name
+            {this.props.currentUser.displayName}
           </div>
         </div>
         <div className="totalPointsDiv">

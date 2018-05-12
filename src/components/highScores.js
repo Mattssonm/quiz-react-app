@@ -11,23 +11,41 @@ class HighScores extends React.Component {
       highscore90: 0,
       highscore80: 0,
       highscore70: 0,
+      selfScore: {
+        rock90: 0,
+        rock80: 0,
+        rock70: 0,
+      }
 
     };
   }
   componentDidMount() {
-    firebaseDB.ref('quiz').once('value', (snapshot) => {
+    let user;
+    if (firebase.auth().currentUser !== null){
+      user = firebase.auth().currentUser.uid;
+      firebaseDB.ref('user/ + ' + user).once('value', (snapshot) => {
+        var snapVal = snapshot.val();
+        //this.setState({selfScore: {rock90: snapVal.quizzestaken.rock90.highscore, rock80: snapVal.quizzestaken.rock80.highscore, rock70: snapVal.quizzestaken.rock70.highscore}})
+      })
+    }
+    firebaseDB.ref().once('value', (snapshot) => {
       var snapVal = snapshot.val();
-      this.setState({ highscore90: snapVal.rock90.highscore, highscore80: snapVal.rock80.highscore, highscore70: snapVal.rock70.highscore})
+      console.log(snapshot.val());
+      this.setState({
+        highscore90: snapVal.quiz.rock90.highscore,
+        highscore80: snapVal.quiz.rock80.highscore,
+        highscore70: snapVal.quiz.rock70.highscore})
     })
+
   }
   render (){
     let highscoreElementOne;
     let highscoreElementTwo;
     let highscoreElementThree
     if (this.state.highscore90 !== 0){
-      highscoreElementOne = <HighscoreEntries highscores={this.state.highscore90}/>
-      highscoreElementTwo = <HighscoreEntries highscores={this.state.highscore80}/>
-      highscoreElementThree = <HighscoreEntries highscores={this.state.highscore70}/>
+      highscoreElementOne = <HighscoreEntries highscores={this.state.highscore90} selfScore={this.state.selfScore.rock90} rockKind="90s"/>
+      highscoreElementTwo = <HighscoreEntries highscores={this.state.highscore80} selfScore={this.state.selfScore.rock80} rockKind="80s"/>
+      highscoreElementThree = <HighscoreEntries highscores={this.state.highscore70} selfScore={this.state.selfScore.rock70} rockKind="70s"/>
     } else {
       highscoreElementOne = <div> Error </div>
       highscoreElementTwo = <div> Error </div>

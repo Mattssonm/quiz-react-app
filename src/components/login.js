@@ -34,12 +34,23 @@ class Login extends Component {
                id: user.uid,
                name: user.displayName,
                email: user.email,
-               photo: user.photoURL
+               photo: user.photoURL,
+               quizzestaken: {
+                 rock90: {
+                   highscore: 0,
+                 },
+                 rock80: {
+                   highscore: 0,
+                 },
+                 rock70: {
+                   highscore: 0,
+                 },
+               }
             }); // I added user
             console.log('user added');
         })
-        
-       
+
+
     }
 
     signOut = () => {
@@ -56,7 +67,7 @@ class Login extends Component {
                  user
              })
          }
-        
+
         })
     }
 

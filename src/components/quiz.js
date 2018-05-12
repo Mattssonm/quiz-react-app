@@ -189,7 +189,10 @@ class Quiz extends React.Component {
         <QuizResult totalPoints={this.state.totalPoints}
         rightAnswers={this.state.rightAnswers}
         questionCount={this.state.questionNumber}
-        quitQuiz={this.quitQuiz}/>
+        quitQuiz={this.quitQuiz}
+        currentUser={firebase.auth().currentUser}
+        takenQuiz={this.state.quizChoice}
+        firebase={firebase.database()}/>
       </div>
       )
     }
