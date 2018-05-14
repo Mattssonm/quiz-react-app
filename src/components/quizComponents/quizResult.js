@@ -6,6 +6,20 @@ class QuizResult extends React.Component {
   }
 
   render() {
+    if (this.props.currentUser == null){
+      return (
+        <div>
+          <div className="totalPointsDiv">
+            Points: {this.props.totalPoints}
+          </div>
+          <div className="rightAnswersDiv">
+            Right answers: {this.props.rightAnswers} <br/>
+            out of: {this.props.questionCount}
+          </div>
+          <button className="restartButton" onClick={() => {this.props.quitQuiz()}}>Restart</button>
+        </div>
+      )
+    }
     let user = " + " + this.props.currentUser.uid;
     let takenQuiz = this.props.takenQuiz;
     function sortHighscores(firstObj,secondObj) {
@@ -49,7 +63,7 @@ class QuizResult extends React.Component {
           </div>
         </div>
         <div className="totalPointsDiv">
-          {this.props.totalPoints}
+          Points: {this.props.totalPoints}
         </div>
         <div className="rightAnswersDiv">
           Right answers: {this.props.rightAnswers} <br/>
