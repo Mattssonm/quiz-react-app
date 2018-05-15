@@ -28,6 +28,7 @@ class Quiz extends React.Component {
     this.evaluateAnswer(answer);
     // Here you could store number of correct and wrong answers, if you like.
     this.stopTimer();
+    clearInterval(this.interval);
   }
 
   //check if answer is correct and handle points, combo
@@ -64,6 +65,7 @@ class Quiz extends React.Component {
       questionNumber: this.state.questionNumber + 1,
       remainingTime: 30
     }, this.startQuiz)
+    this.interval = setInterval(this.onTick, 1000);
   }
 
   //in selected category, get current question number from db
@@ -103,6 +105,8 @@ class Quiz extends React.Component {
       remainingTime: 30,
     })
     localStorage.removeItem('quizState');
+    clearInterval(this.interval);
+    this.interval = setInterval(this.onTick, 1000);
   }
 
   resultChange = () => {
