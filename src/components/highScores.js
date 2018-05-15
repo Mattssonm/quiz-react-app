@@ -22,15 +22,15 @@ class HighScores extends React.Component {
   componentDidMount() {
     let user;
     if (firebase.auth().currentUser !== null){
-      user = firebase.auth().currentUser.uid;
+      user = " + " + firebase.auth().currentUser.uid;
       firebaseDB.ref('user/ + ' + user).once('value', (snapshot) => {
         var snapVal = snapshot.val();
         //this.setState({selfScore: {rock90: snapVal.quizzestaken.rock90.highscore, rock80: snapVal.quizzestaken.rock80.highscore, rock70: snapVal.quizzestaken.rock70.highscore}})
       })
     }
     firebaseDB.ref().once('value', (snapshot) => {
-      user = " + " + firebase.auth().currentUser.uid;
       var snapVal = snapshot.val();
+      if (user ){
       this.setState({
         highscore90: snapVal.quiz.rock90.highscore,
         highscore80: snapVal.quiz.rock80.highscore,
@@ -39,7 +39,17 @@ class HighScores extends React.Component {
         rock90: snapVal.user[user].quizzestaken.rock90.highscore,
         rock80: snapVal.user[user].quizzestaken.rock80.highscore,
         rock70: snapVal.user[user].quizzestaken.rock70.highscore,
-      }})
+      }})} else {
+        this.setState({
+          highscore90: snapVal.quiz.rock90.highscore,
+          highscore80: snapVal.quiz.rock80.highscore,
+          highscore70: snapVal.quiz.rock70.highscore,
+        selfScore: {
+          rock90: 0,
+          rock80: 0,
+          rock70: 0,
+        }})
+      }
     })
 
   }
