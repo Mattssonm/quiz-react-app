@@ -93,6 +93,75 @@ class Question extends React.Component {
 
   componentDidMount = ()  => {
     this.interval = setInterval(this.checkRemainingTime, 1000);
+
+
+      let altArray = [
+        (
+          <div>
+            <input
+              type="radio"
+              name="alts"
+              id="alt1"
+              checked={this.state.selectedOption === 'alt1'}
+              onChange={this.handleAltChange}
+              />
+            <label
+              className={this.state.styleCorrect}
+              htmlFor="alt1">{this.props.questObj.answer}
+            </label>
+          </div>
+        ),
+        (
+          <div>
+            <input
+              type="radio"
+              name="alts"
+              id="alt2"
+              checked={this.state.selectedOption === 'alt2'}
+              onChange={this.handleAltChange}
+              />
+            <label
+              className={this.state.styleWrong}
+              htmlFor="alt2">{this.props.questObj.wrongAlts.alt1}
+            </label>
+          </div>
+        ),
+        (
+          <div>
+            <input
+              type="radio"
+              name="alts"
+              id="alt3"
+              checked={this.state.selectedOption === 'alt3'}
+              onChange={this.handleAltChange}
+              />
+            <label
+              className={this.state.styleWrong}
+              htmlFor="alt3">{this.props.questObj.wrongAlts.alt2}
+            </label>
+          </div>
+        ),
+        (
+          <div>
+            <input
+              type="radio"
+              name="alts"
+              id="alt4"
+              checked={this.state.selectedOption === 'alt4'}
+              onChange={this.handleAltChange}
+              />
+            <label
+              className={this.state.styleWrong}
+              htmlFor="alt4">{this.props.questObj.wrongAlts.alt3}
+            </label>
+          </div>
+        )
+      ]
+      let shuffledArray = this.shuffle(altArray);
+      let mapArray = shuffledArray.map((item, index) =>
+        <div key={index}>{item}</div>
+      )
+      this.setState({mapArray: mapArray})
   }
 
   componentWillUnmount = () => {
@@ -100,77 +169,11 @@ class Question extends React.Component {
   }
 
   render() {
-    let altArray = [
-      (
-        <div>
-          <input
-            type="radio"
-            name="alts"
-            id="alt1"
-            checked={this.state.selectedOption === 'alt1'}
-            onChange={this.handleAltChange}
-            />
-          <label
-            className={this.state.styleCorrect}
-            htmlFor="alt1">{this.props.questObj.answer}
-          </label>
-        </div>
-      ),
-      (
-        <div>
-          <input
-            type="radio"
-            name="alts"
-            id="alt2"
-            checked={this.state.selectedOption === 'alt2'}
-            onChange={this.handleAltChange}
-            />
-          <label
-            className={this.state.styleWrong}
-            htmlFor="alt2">{this.props.questObj.wrongAlts.alt1}
-          </label>
-        </div>
-      ),
-      (
-        <div>
-          <input
-            type="radio"
-            name="alts"
-            id="alt3"
-            checked={this.state.selectedOption === 'alt3'}
-            onChange={this.handleAltChange}
-            />
-          <label
-            className={this.state.styleWrong}
-            htmlFor="alt3">{this.props.questObj.wrongAlts.alt2}
-          </label>
-        </div>
-      ),
-      (
-        <div>
-          <input
-            type="radio"
-            name="alts"
-            id="alt4"
-            checked={this.state.selectedOption === 'alt4'}
-            onChange={this.handleAltChange}
-            />
-          <label
-            className={this.state.styleWrong}
-            htmlFor="alt4">{this.props.questObj.wrongAlts.alt3}
-          </label>
-        </div>
-      )
-    ]
-    let shuffledArray = this.shuffle(altArray);
-    let mapArray = shuffledArray.map((item, index) =>
-      <div key={index}>{item}</div>
-    )
     return (
       <div>
         <h3>{this.props.questObj.question}</h3>
         <div className="altDiv">
-          {mapArray}
+          {this.state.mapArray}
         </div>
         <input
           onClick={this.handleButton}

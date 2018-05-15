@@ -11,7 +11,7 @@ class Profile extends Component {
     topScore90: ''
   }
 
-  
+
    displayName = () =>{
     if(this.props.user !== null){
       this.setState=({
@@ -21,7 +21,7 @@ class Profile extends Component {
       })
 
     } else {
-      
+
       return "please login"
     }
   }
@@ -30,7 +30,7 @@ class Profile extends Component {
     return (
       <input type="text" value={this.state.user} onChange={this.handleChange}/>
    )
-    
+
 
 }
   updateName = () => {
@@ -42,24 +42,22 @@ class Profile extends Component {
 
     handleChange = (event) => {
         this.setState({user: event.target.value});
-    
+
     }
     componentWillMount = () => {
       let user = this.props.user.uid;
-      firebaseDB.ref('/user/').child(user).on('value', (snapshot) => {
+      firebaseDB.ref('/user/' + user).on('value', (snapshot) => {
         let obj = snapshot.val();
-        console.log(obj.photo)
-        this.setState=({
-          user: "albin",
+        console.log(obj)
+        this.setState({
+          user: obj.name,
           photo: obj.photo,
           email: obj.email
         })
-        console.log(this.state)
       })
-      
     }
     componentWillUnmount = () => {
-      this.setState=({
+      this.setState({
         photo: '',
         user: '',
         email: ''
@@ -67,7 +65,7 @@ class Profile extends Component {
     }
 
   render() {
-    //console.log(this.state.user)
+    console.log(this.state);
     return (
       <div className="wrapper">
           <form className="myForm">
@@ -77,15 +75,15 @@ class Profile extends Component {
             </div>
             <div className="contact">
               <div>Name</div>
-              <p onClick={this.changeName}>Jonas</p>
-    
+              <p onClick={this.changeName}>{this.state.user}</p>
+
               <button onClick={this.updateName}>Change name</button>
               <br />
               Email
              <div>{this.state.email}</div>
             </div>
-            
-              </form> 
+
+              </form>
 {/*               <div className="highScore">HighScore
                 <div>90's Rock</div>
                   <ul>
@@ -101,7 +99,7 @@ class Profile extends Component {
                   <ul>
                     <li>Topscore: 0  Quizzez Taken: 2134</li>
                     <li>Rank: 120</li>
-                  </ul>   
+                  </ul>
                   </div> */}
       </div>
     );
