@@ -8,36 +8,28 @@ class Profile extends Component {
     email: '',
     topScore70: '',
     topScore80: '',
-    topScore90: ''
+    topScore90: '',
+    status: true
   }
 
-
-   displayName = () =>{
-    if(this.props.user !== null){
-      this.setState=({
-        user: this.props.user,
-        photo: this.props.photoURL,
-        email: this.props.email
+   changeName = (e) => {
+     e.preventDefault();
+     
+      this.setState({
+        status: false
       })
-
-    } else {
-
-      return "please login"
-    }
-  }
-   changeName = () => {
-
-    return (
-      <input type="text" value={this.state.user} onChange={this.handleChange}/>
-   )
 
 
 }
-  updateName = () => {
+  updateName = (e) => {
+    e.preventDefault();
     let user = this.props.user.uid;
       firebaseDB.ref('/user/' + user).update({
         name: this.state.user})
         console.log('changed name')
+        this.setState({
+          status: true
+        })
   }
 
     handleChange = (event) => {
@@ -50,7 +42,7 @@ class Profile extends Component {
         let obj = snapshot.val();
         console.log(obj)
         this.setState({
-          user: "albin",
+          user: obj.name,
           photo: obj.photo,
           email: obj.email
         })
@@ -75,10 +67,19 @@ class Profile extends Component {
                 <img src={this.state.photo} alt="avatar"/>
             </div>
             <div className="contact">
-              <div>Name</div>
-              <p onClick={this.changeName}>{this.state.user}</p>
-
-              <button onClick={this.updateName}>Change name</button>
+            <div>Name</div>
+            { this.state.status ? (
+                      <div>
+                      <p>{this.state.user}</p>
+                      <button onClick={ this.changeName }> Change name </button>
+                      </div>
+                    ) :
+                    <div>
+                    <input type="text" value={this.state.user} onChange={this.handleChange}/>
+                    <button onClick={ this.updateName }> Done </button>
+                    </div>
+                }
+              
               <br />
               Email
              <div>{this.state.email}</div>
