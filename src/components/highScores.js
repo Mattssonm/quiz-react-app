@@ -22,8 +22,8 @@ class HighScores extends React.Component {
   componentDidMount() {
     let user;
     if (firebase.auth().currentUser !== null){
-      user = " + " + firebase.auth().currentUser.uid;
-      firebaseDB.ref('user/ + ' + user).once('value', (snapshot) => {
+      user = firebase.auth().currentUser.uid;
+      firebaseDB.ref('user/' + user).once('value', (snapshot) => {
         var snapVal = snapshot.val();
         //this.setState({selfScore: {rock90: snapVal.quizzestaken.rock90.highscore, rock80: snapVal.quizzestaken.rock80.highscore, rock70: snapVal.quizzestaken.rock70.highscore}})
       })
