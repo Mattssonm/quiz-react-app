@@ -60,6 +60,7 @@ class Profile extends Component {
   render() {
     //console.log(this.state.user)
     return (
+      <div>
       <div className="wrapper">
           <form className="myForm">
              <div className="message">
@@ -86,23 +87,31 @@ class Profile extends Component {
             </div>
 
               </form>
-{/*               <div className="highScore">HighScore
+
+      </div>
+      <div className="wrapper">
+      <div className="highScore">
+        <span>HighScore</span>
                 <div>90's Rock</div>
                   <ul>
-                    <li>Topscore: 0  Quizzez Taken: 2134</li>
+                    <li>Topscore: 0  </li>
                     <li>Rank: 120</li>
+                    <li>Quizzez Taken: 2134</li>
                   </ul>
                   <div>80's Rock</div>
                   <ul>
-                    <li>Topscore: 5  Quizzez Taken: 0</li>
+                    <li>Topscore: 5 </li>
                     <li>Unranked</li>
+                    <li>Quizzez Taken: 0</li>
                   </ul>
                   <div>70's Rock</div>
                   <ul>
-                    <li>Topscore: 0  Quizzez Taken: 2134</li>
+                    <li>Topscore: 0  </li>
                     <li>Rank: 120</li>
+                    <li>Quizzez Taken: 2134</li>
                   </ul>
-                  </div> */}
+                  </div>
+      </div>
       </div>
     );
   }
