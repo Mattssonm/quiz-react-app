@@ -23,11 +23,11 @@ const App = (props) => {
 
     const handleChange = (e) => {
         e.preventDefault();
-        
+
         if(props.user === null){
             firebase.auth().signInWithPopup(googleAuth)
             .then((result) => {
-                
+
                 let id = '';
                 let allUsers = [];
                 const user = result.user;
@@ -35,11 +35,11 @@ const App = (props) => {
                 firebaseDB.ref("user").once("value", (snapshot) => {
 
                     let obj = snapshot.val()
-                    
+
                     for (let prop in obj) {
-                        // add all keys to array                   
+                        // add all keys to array
                        allUsers.push(prop);
-                                        
+
                     }
 
                     for (let i = 0; i < allUsers.length; i++) {
@@ -47,28 +47,39 @@ const App = (props) => {
                         if (user.uid === allUsers[i]) {
                           id = allUsers[i];
                         }
-                  
+
                       }
- 
+
                       if ( id === '') {
                           // if key doesnt exist add userinfo to firebase
                         firebaseDB.ref(`user/${user.uid}`).set({
                             id: user.uid,
                             name: user.displayName,
                             email: user.email,
-                            photo: user.photoURL
+                            photo: user.photoURL,
+                            quizzestaken: {
+                              rock90: {
+                                highscore: 0,
+                              },
+                              rock80: {
+                                highscore: 0,
+                              },
+                              rock70: {
+                                highscore: 0,
+                              }
+                            }
                          });
                          console.log('user added');
                     } else {
                         console.log('logged in')
                     }
                 })
-                               
+
             })
         } else {
             firebase.auth().signOut()
         }
-    
+
     }
 
     const showLogin = () => {
@@ -85,15 +96,15 @@ const App = (props) => {
             )
         }
     }
-    
+
   return (
-     
+
     <BrowserRouter>
       <div className="container">
         <header id="header">
           <NavLink to="/" className="nav">Quiz</NavLink>
           <NavLink to="/highScores" className="nav">High Scores</NavLink>
-          
+
           {showLogin()}
         </header>
         <div id="main">
@@ -107,7 +118,7 @@ const App = (props) => {
       </div>
     </BrowserRouter>
   )
-}   
+}
 
 
 firebase.auth().onAuthStateChanged((user)=>{

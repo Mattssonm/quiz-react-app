@@ -19,7 +19,7 @@ class Quiz extends React.Component {
       rightAnswers: 0,
       resultDisplay: false,
       timerIsRunning: false,
-      remainingTime: 60,
+      remainingTime: 30,
     };
   }
 
@@ -28,6 +28,7 @@ class Quiz extends React.Component {
     this.evaluateAnswer(answer);
     // Here you could store number of correct and wrong answers, if you like.
     this.stopTimer();
+    clearInterval(this.interval);
   }
 
   //check if answer is correct and handle points, combo
@@ -62,8 +63,9 @@ class Quiz extends React.Component {
   nextQuestion = () => {
     this.setState({
       questionNumber: this.state.questionNumber + 1,
-      remainingTime: 60
+      remainingTime: 30
     }, this.startQuiz)
+    this.interval = setInterval(this.onTick, 1000);
   }
 
   //in selected category, get current question number from db
@@ -100,17 +102,15 @@ class Quiz extends React.Component {
       rightAnswers: 0,
       resultDisplay: false,
       timerIsRunning: false,
-      remainingTime: 60,
+      remainingTime: 30,
     })
     localStorage.removeItem('quizState');
+    clearInterval(this.interval);
+    this.interval = setInterval(this.onTick, 1000);
   }
 
-  timeIsUp = () => {
-    console.log("timeIsUp")
-  }
   resultChange = () => {
     this.setState({resultDisplay: !this.state.resultDisplay});
-    console.log("this is run");
   }
 
   //----------timer functions -------
@@ -122,11 +122,10 @@ class Quiz extends React.Component {
         remainingTime: this.state.remainingTime - 1
       })
     }
-    //if 60 seconds has passed
+    //if remainingTime is 0
     if (this.state.remainingTime === 0) {
       this.stopTimer();
       clearInterval(this.interval);
-      this.timeIsUp();
     }
   }
 
@@ -144,16 +143,11 @@ class Quiz extends React.Component {
 
   componentDidMount = () => {
     this.interval = setInterval(this.onTick, 1000);
-    // var state = this.props.savedQuizState;
-    // if (state) {
-    //   this.setState(state);
-    // }
     const loadedState = JSON.parse(localStorage.getItem('quizState'))
     this.setState(loadedState)
   }
 
   componentWillUnmount = () => {
-    //this.props.sendQuizState(this.state)
     clearInterval(this.interval);
     localStorage.setItem('quizState', JSON.stringify(this.state))
   }
@@ -179,10 +173,10 @@ class Quiz extends React.Component {
             questObj={this.state.currentQuestion}
             questionNumber={this.state.questionNumber}
             resultChange={this.resultChange}
+            remainingTime={this.state.remainingTime}
           />
         </div>
       )
-    //else show chooseCategory
   } else if (this.state.resultDisplay) {
     return (
       <div id="quizResults">

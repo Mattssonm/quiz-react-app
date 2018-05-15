@@ -7,29 +7,18 @@ class Question extends React.Component {
     this.state = ({
       selectedOption: "",
       buttonTxt: "Submit",
-      styleWrong: "choice",
-      styleCorrect: "choice"
+      styleWrong: "",
+      styleCorrect: ""
     })
   }
+
   handleButton = () => {
     if (this.state.buttonTxt === "Submit") {
       this.props.sendAnswerSubmit(this.state.selectedOption);
-
-      //if this is the last question
-      if (this.props.questionNumber === 3) {
-        this.setState({
-          buttonTxt: "See Results"
-        })
-      //else change buttonTxt to "Next"
-      } else {
-        this.setState({
-          buttonTxt: "Next"
-        })
-      }
-      this.showCorrectAnswer();
+      this.changeButtonOnAnswerSent();
     //else if all questions has been answered see results
     } else if (this.state.buttonTxt === "See Results") {
-      //Do something to submit the results to database and show user the results
+      //quiz.js will show result component
       this.props.resultChange();
     //else buttonTxt === "Next"
     } else {
@@ -40,6 +29,21 @@ class Question extends React.Component {
         buttonTxt: "Submit"
       })
     }
+  }
+
+  changeButtonOnAnswerSent = () => {
+    //if this is the last question
+    if (this.props.questionNumber === 3) {
+      this.setState({
+        buttonTxt: "See Results"
+      })
+    //else change buttonTxt to "Next"
+    } else {
+      this.setState({
+        buttonTxt: "Next"
+      })
+    }
+    this.showCorrectAnswer();
   }
 
   handleAltChange = event => {
@@ -62,11 +66,43 @@ class Question extends React.Component {
     })
   }
 
+  checkRemainingTime = () => {
+    if (this.props.remainingTime === 0) {
+      this.changeButtonOnAnswerSent();
+      this.props.sendAnswerSubmit("Time is up");
+    }
+  }
+
+  shuffle = array => {
+    var m = array.length, t, i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+
+    return array;
+  }
+
+  componentDidMount = ()  => {
+    this.interval = setInterval(this.checkRemainingTime, 1000);
+  }
+
+  componentWillUnmount = () => {
+    clearInterval(this.interval);
+  }
+
   render() {
-    return (
-      <div>
-        <h3>{this.props.questObj.question}</h3>
-        <div className="altDiv">
+    let altArray = [
+      (
+        <div>
           <input
             type="radio"
             name="alts"
@@ -78,6 +114,10 @@ class Question extends React.Component {
             className={this.state.styleCorrect}
             htmlFor="alt1">{this.props.questObj.answer}
           </label>
+        </div>
+      ),
+      (
+        <div>
           <input
             type="radio"
             name="alts"
@@ -89,6 +129,10 @@ class Question extends React.Component {
             className={this.state.styleWrong}
             htmlFor="alt2">{this.props.questObj.wrongAlts.alt1}
           </label>
+        </div>
+      ),
+      (
+        <div>
           <input
             type="radio"
             name="alts"
@@ -100,6 +144,10 @@ class Question extends React.Component {
             className={this.state.styleWrong}
             htmlFor="alt3">{this.props.questObj.wrongAlts.alt2}
           </label>
+        </div>
+      ),
+      (
+        <div>
           <input
             type="radio"
             name="alts"
@@ -111,6 +159,18 @@ class Question extends React.Component {
             className={this.state.styleWrong}
             htmlFor="alt4">{this.props.questObj.wrongAlts.alt3}
           </label>
+        </div>
+      )
+    ]
+    let shuffledArray = this.shuffle(altArray);
+    let mapArray = shuffledArray.map((item, index) =>
+      <div key={index}>{item}</div>
+    )
+    return (
+      <div>
+        <h3>{this.props.questObj.question}</h3>
+        <div className="altDiv">
+          {mapArray}
         </div>
         <input
           onClick={this.handleButton}
