@@ -20,7 +20,7 @@ class QuizResult extends React.Component {
         </div>
       )
     }
-    let user = " + " + this.props.currentUser.uid;
+    let user = this.props.currentUser.uid;
     let takenQuiz = this.props.takenQuiz;
     function sortHighscores(firstObj,secondObj) {
       if (firstObj.points < secondObj.points)

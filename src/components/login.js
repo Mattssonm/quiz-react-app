@@ -47,9 +47,12 @@ class Login extends Component {
                     :
                     <button onClick={ this.signIn }> Login </button>
                 }
+                
             </div>
         )
     }
 }
 
 export default Login;
+
+<input type="text" id="name" value={this.state.user} onChange={this.handleChange}/>
