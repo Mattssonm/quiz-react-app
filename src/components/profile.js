@@ -7,8 +7,11 @@ class Profile extends Component {
     photo: '',
     email: '',
     topScore70: '',
+    taken70: '',
     topScore80: '',
+    taken80: '',
     topScore90: '',
+    taken90: '',
     status: true
   }
 
@@ -40,13 +43,67 @@ class Profile extends Component {
       let user = this.props.user.uid;
       firebaseDB.ref('/user/').child(user).on('value', (snapshot) => {
         let obj = snapshot.val();
-        console.log(obj)
+        //console.log(obj)
         this.setState({
           user: obj.name,
           photo: obj.photo,
           email: obj.email
         })
       })
+      firebaseDB.ref(`/user/${user}/quizzestaken/rock70/`).orderByChild("points").once('value', (snapshot) => {
+       let ohSnap = snapshot.val();
+       //console.log(ohSnap);
+       const data = [];
+        snapshot.forEach((childSnapshot)=>{
+         data.push({
+            ...childSnapshot.val(),
+            id:childSnapshot.key
+        })
+    });
+    const last = data[data.length - 1]
+    //console.log(last)
+    this.setState({
+      topScore70: last.points,
+      taken70: data.length-1
+    })
+    
+      })
+      firebaseDB.ref(`/user/${user}/quizzestaken/rock80/`).orderByChild("points").once('value', (snapshot) => {
+        let ohSnap = snapshot.val();
+        //console.log(ohSnap);
+        const data = [];
+         snapshot.forEach((childSnapshot)=>{
+          data.push({
+             ...childSnapshot.val(),
+             id:childSnapshot.key
+         })
+     });
+     const last = data[data.length - 1]
+     //console.log(last)
+     this.setState({
+       topScore80: last.points,
+       taken80: data.length-1
+     })
+     
+       })
+       firebaseDB.ref(`/user/${user}/quizzestaken/rock90/`).orderByChild("points").once('value', (snapshot) => {
+        let ohSnap = snapshot.val();
+        //console.log(ohSnap);
+        const data = [];
+         snapshot.forEach((childSnapshot)=>{
+          data.push({
+             ...childSnapshot.val(),
+             id:childSnapshot.key
+         })
+     });
+     const last = data[data.length - 1]
+     //console.log(last)
+     this.setState({
+       topScore90: last.points,
+       taken90: data.length-1
+     })
+     
+       })
     }
 
     componentWillUnmount = () => {
@@ -77,7 +134,7 @@ class Profile extends Component {
                     ) :
                     <div>
                     <input type="text" value={this.state.user} onChange={this.handleChange}/>
-                    <button onClick={ this.updateName }> Done </button>
+                    <button onClick={ this.updateName }> Update </button>
                     </div>
                 }
               
@@ -94,21 +151,21 @@ class Profile extends Component {
         <span>HighScore</span>
                 <div>90's Rock</div>
                   <ul>
-                    <li>Topscore: 0  </li>
+                    <li>Topscore: {this.state.topScore90}  </li>
                     <li>Rank: 120</li>
-                    <li>Quizzez Taken: 2134</li>
+                    <li>Quizzez Taken: {this.state.taken90}</li>
                   </ul>
                   <div>80's Rock</div>
                   <ul>
-                    <li>Topscore: 5 </li>
+                    <li>Topscore: {this.state.topScore80} </li>
                     <li>Unranked</li>
-                    <li>Quizzez Taken: 0</li>
+                    <li>Quizzez Taken: {this.state.taken80}</li>
                   </ul>
                   <div>70's Rock</div>
                   <ul>
-                    <li>Topscore: 0  </li>
+                    <li>Topscore: {this.state.topScore70}  </li>
                     <li>Rank: 120</li>
-                    <li>Quizzez Taken: 2134</li>
+                    <li>Quizzez Taken: {this.state.taken70}</li>
                   </ul>
                   </div>
       </div>

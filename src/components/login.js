@@ -54,5 +54,3 @@ class Login extends Component {
 }
 
 export default Login;
-
-<input type="text" id="name" value={this.state.user} onChange={this.handleChange}/>
