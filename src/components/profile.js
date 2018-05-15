@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { firebase, firebaseDB } from '../firebase';
+import './profile.css';
 class Profile extends Component {
   state = {
     user: '',
     photo: '',
+    email: '',
     topScore70: '',
     topScore80: '',
     topScore90: ''
@@ -14,59 +16,93 @@ class Profile extends Component {
     if(this.props.user !== null){
       this.setState=({
         user: this.props.user,
-        photo: this.props.photoURL
+        photo: this.props.photoURL,
+        email: this.props.email
       })
-      return this.props.user.displayName
+
     } else {
       
       return "please login"
     }
   }
    changeName = () => {
-    let user = this.props.user.uid;
-      firebaseDB.ref('/user/' + user).update({
-        name: "jonas"})
-        console.log('changed name')
+
+    return (
+      <input type="text" value={this.state.user} onChange={this.handleChange}/>
+   )
+    
 
 }
+  updateName = () => {
+    let user = this.props.user.uid;
+      firebaseDB.ref('/user/' + user).update({
+        name: this.state.user})
+        console.log('changed name')
+  }
 
     handleChange = (event) => {
         this.setState({user: event.target.value});
     
     }
+    componentWillMount = () => {
+      let user = this.props.user.uid;
+      firebaseDB.ref('/user/').child(user).on('value', (snapshot) => {
+        let obj = snapshot.val();
+        console.log(obj.photo)
+        this.setState=({
+          user: "albin",
+          photo: obj.photo,
+          email: obj.email
+        })
+        console.log(this.state)
+      })
+      
+    }
+    componentWillUnmount = () => {
+      this.setState=({
+        photo: '',
+        user: '',
+        email: ''
+      })
+    }
 
   render() {
-    console.log(this.props.user.uid)
+    //console.log(this.state.user)
     return (
-      <div>
-        <img src={this.state.photo} alt="avatar"/>
-        <br />
-        <br />
-        <br />
-        <div>{this.state.user}</div>
-        <label>
-            Name:
-        <input type="text" name="name" value={this.state.user} onChange={this.handleChange}/>
-        </label>
-        <br />
-        <button onClick={this.changeName}>Change Username </button>
-        
-          <div>HighScore</div>
-          <div>90's Rock</div>
-          <ul>
-            <li>Topscore: 0  Quizzez Taken: 2134</li>
-            <li>Rank: 120</li>
-          </ul>
-          <div>80's Rock</div>
-          <ul>
-            <li>Topscore: 5  Quizzez Taken: 0</li>
-            <li>Unranked</li>
-          </ul>
-          <div>70's Rock</div>
-          <ul>
-            <li>Topscore: 0  Quizzez Taken: 2134</li>
-            <li>Rank: 120</li>
-          </ul>
+      <div className="wrapper">
+          <form className="myForm">
+             <div className="message">
+                 Avatar
+                <img src={this.state.photo} alt="avatar"/>
+            </div>
+            <div className="contact">
+              <div>Name</div>
+              <p onClick={this.changeName}>Jonas</p>
+    
+              <button onClick={this.updateName}>Change name</button>
+              <br />
+              Email
+             <div>{this.state.email}</div>
+            </div>
+            
+              </form> 
+{/*               <div className="highScore">HighScore
+                <div>90's Rock</div>
+                  <ul>
+                    <li>Topscore: 0  Quizzez Taken: 2134</li>
+                    <li>Rank: 120</li>
+                  </ul>
+                  <div>80's Rock</div>
+                  <ul>
+                    <li>Topscore: 5  Quizzez Taken: 0</li>
+                    <li>Unranked</li>
+                  </ul>
+                  <div>70's Rock</div>
+                  <ul>
+                    <li>Topscore: 0  Quizzez Taken: 2134</li>
+                    <li>Rank: 120</li>
+                  </ul>   
+                  </div> */}
       </div>
     );
   }
