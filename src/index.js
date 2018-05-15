@@ -16,6 +16,10 @@ import Profile from './components/profile';
 import Login from './components/login';
 
 const App = (props) => {
+    this.state = {
+        allUsers: [],
+        id: ''
+    }
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -23,37 +27,65 @@ const App = (props) => {
         if(props.user === null){
             firebase.auth().signInWithPopup(googleAuth)
             .then((result) => {
-                console.log(result.user)
+                
+                let id = '';
+                let allUsers = [];
                 const user = result.user;
-               /*  this.setState({
-                    user
+                // Fetch all uid from firebase
+                firebaseDB.ref("user").once("value", (snapshot) => {
+
+                    let obj = snapshot.val()
+                    
+                    for (let prop in obj) {
+                        // add all keys to array                   
+                       allUsers.push(prop);
+                                        
+                    }
+
+                    for (let i = 0; i < allUsers.length; i++) {
+                        // check if key matches in database
+                        if (user.uid === allUsers[i]) {
+                          id = allUsers[i];
+                        }
+                  
+                      }
+ 
+                      if ( id === '') {
+                          // if key doesnt exist add userinfo to firebase
+                        firebaseDB.ref(`user/${user.uid}`).set({
+                            id: user.uid,
+                            name: user.displayName,
+                            email: user.email,
+                            photo: user.photoURL
+                         });
+                         console.log('user added');
+                    } else {
+                        console.log('logged in')
+                    }
                 })
-           firebaseDB.ref('user').once("value", (snapshot) => {
-    
-                let obj = snapshot.val();
-    
-                for(let prop in obj) {
-                    this.setState(prevState => ({
-                        users: [...prevState.users, prop]
-                    }))
-                }
-            })*/
-               firebaseDB.ref(`user/ + ${user.uid}`).set({
-                   id: user.uid,
-                   name: user.displayName,
-                   email: user.email,
-                   photo: user.photoURL
-                }); // I added user
-                console.log('user added');
-                console.log('logged in')
+                               
             })
         } else {
             firebase.auth().signOut()
-           console.log('logged out')
         }
-        console.log(props.user)
+    
     }
-   
+
+    const showLogin = () => {
+        if(props.user !== null) {
+            return (
+                <div>
+                    <NavLink to="/profile" className="nav">Profile</NavLink>
+                    <div className="nav" onClick={handleChange}>Logout</div>
+                </div>
+            )
+        } else {
+            return (
+                <div className="nav" onClick={handleChange}>Login</div>
+            )
+        }
+    }
+    
   return (
      
     <BrowserRouter>
@@ -61,14 +93,14 @@ const App = (props) => {
         <header id="header">
           <NavLink to="/" className="nav">Quiz</NavLink>
           <NavLink to="/highScores" className="nav">High Scores</NavLink>
-          <NavLink to="/profile" className="nav">Profile</NavLink>
-          <div className="nav" onClick={handleChange}>Login</div>
+          
+          {showLogin()}
         </header>
         <div id="main">
           <Switch>
             <Route path="/" exact component={Quiz}/>
             <Route path="/highScores" component={HighScores}/>
-  <Route path="/profile" render={(user) => <Profile {...props} user={props.user}/>}/>
+  <Route path="/profile" render={(user,history) => <Profile {...props} user={props.user} history={props.location}/>}/>
             <Route path="/login" component={Login} />
           </Switch>
         </div>
