@@ -13,44 +13,9 @@ class Login extends Component {
     }
 
     signIn = () => {
-        firebase.auth().signInWithPopup(googleAuth)
-        .then((result) => {
-            console.log(result.user)
-            const user = result.user;
-            this.setState({
-                user
-            })
-        firebaseDB.ref('user').once("value", (snapshot) => {
-
-            let obj = snapshot.val();
-
-            for(let prop in obj) {
-                this.setState(prevState => ({
-                    users: [...prevState.users, prop]
-                }))
-            }
-        })
-           firebaseDB.ref(`user/ + ${user.uid}`).set({
-               id: user.uid,
-               name: user.displayName,
-               email: user.email,
-               photo: user.photoURL,
-               quizzestaken: {
-                 rock90: {
-                   highscore: 0,
-                 },
-                 rock80: {
-                   highscore: 0,
-                 },
-                 rock70: {
-                   highscore: 0,
-                 },
-               }
-            }); // I added user
-            console.log('user added');
-        })
-
-
+    
+        
+       
     }
 
     signOut = () => {
@@ -67,7 +32,7 @@ class Login extends Component {
                  user
              })
          }
-
+        
         })
     }
 

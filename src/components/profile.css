@@ -1,0 +1,53 @@
+.wrapper {
+    border:none;
+    display: flex;
+}
+
+.wrapper img {
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper input {
+    display: block;
+}
+.wrapper div {
+  border: none;
+}
+.myForm {
+    display: flex;
+    border-radius: 3px;
+    padding: 1.8em;
+  }
+
+  .message {
+   	margin-right: 2em; 
+    display: flex;
+    flex-direction: column;
+  }
+  .message > img {
+   flex: 1; 
+   min-width:12em;
+  }
+  .contact {
+     flex: 1; 
+     border: none;
+  }
+  .contact input {
+    width: 100%;
+  }
+  .contact input,
+  .contact button {
+    padding: 1em;
+    margin-bottom: 1em;
+  }
+  .contact button {
+   background: gray;
+   color: white;
+   border: 0;
+  }
+  .highScore {
+    display: block;
+    border-radius: 3px;
+    padding: 1.8em;
+  }
