@@ -61,3 +61,19 @@
 input[type=submit] {
   right: 0;
 }
+
+.flexOrder1 {
+  order: 1;
+}
+
+.flexOrder2 {
+  order: 2;
+}
+
+.flexOrder3 {
+  order: 3;
+}
+
+.flexOrder4 {
+  order: 4;
+}

@@ -143,13 +143,18 @@ class Quiz extends React.Component {
 
   componentDidMount = () => {
     this.interval = setInterval(this.onTick, 1000);
-    const loadedState = JSON.parse(localStorage.getItem('quizState'))
-    this.setState(loadedState)
+
+    if (!this.state.resultDisplay) {
+      const loadedState = JSON.parse(localStorage.getItem('quizState'))
+      this.setState(loadedState)
+    }
   }
 
   componentWillUnmount = () => {
     clearInterval(this.interval);
-    localStorage.setItem('quizState', JSON.stringify(this.state))
+    if (!this.state.resultDisplay) {
+      localStorage.setItem('quizState', JSON.stringify(this.state))
+    }
   }
 
   render() {
