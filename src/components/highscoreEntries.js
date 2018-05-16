@@ -5,7 +5,7 @@ class HighscoreEntries extends React.Component {
     return (
         <div className = "highContainer"> {this.props.rockKind} Rock Highscores
           <div className = "highScoreOne">
-            <img src={this.props.photo} alt=""/>
+            <img src={this.props.highscores.first.picture} alt=""/>
             <div className = "nameDiv">
               {this.props.highscores.first.name}
             </div>
@@ -14,7 +14,7 @@ class HighscoreEntries extends React.Component {
             </div>
           </div>
           <div className = "highScoreOne">
-            <img src={this.props.photo} alt=""/>
+            <img src={this.props.highscores.second.picture} alt=""/>
             <div className = "nameDiv">
               {this.props.highscores.second.name}
             </div>
@@ -23,7 +23,7 @@ class HighscoreEntries extends React.Component {
             </div>
           </div>
           <div className = "highScoreOne">
-            <img src={this.props.photo} alt=""/>
+            <img src={this.props.highscores.third.picture} alt=""/>
             <div className = "nameDiv">
               {this.props.highscores.third.name}
             </div>

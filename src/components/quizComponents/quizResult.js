@@ -1,5 +1,5 @@
 import React from 'react';
-import quizResult from './quizResult.css';
+import './quizResult.css';
 
 class QuizResult extends React.Component {
   constructor(props){
@@ -10,11 +10,13 @@ class QuizResult extends React.Component {
   }
 
 componentDidMount(){
-  this.props.firebase.ref().once("value", (snapshot) => {
-    this.setState({
-      username: snapshot.val().user[this.props.currentUser.uid].name,
-    })
-})
+  if (this.props.currentUser.uid !== null){
+    this.props.firebase.ref().once("value", (snapshot) => {
+      this.setState({
+        username: snapshot.val().user[this.props.currentUser.uid].name,
+      })
+  })
+  }
 }
   render() {
     if (this.props.currentUser == null){
@@ -63,8 +65,10 @@ componentDidMount(){
         third: highScoresObj[1],
       })
     })
-    this.props.firebase.ref("/user/" + user + "/quizzestaken/" + takenQuiz).push({points: this.props.totalPoints,
-    rightAnswers: this.props.rightAnswers})
+    if (this.state.username !== ""){
+      this.props.firebase.ref("/user/" + user + "/quizzestaken/" + takenQuiz).push({points: this.props.totalPoints,
+      rightAnswers: this.props.rightAnswers})
+    }
     return (
       <div>
         <div className="loggedInInfo">
