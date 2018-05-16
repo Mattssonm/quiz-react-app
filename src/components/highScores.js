@@ -15,7 +15,8 @@ class HighScores extends React.Component {
         rock90: 0,
         rock80: 0,
         rock70: 0,
-      }
+      },
+      photo: "",
 
     };
   }
@@ -35,6 +36,7 @@ class HighScores extends React.Component {
         highscore90: snapVal.quiz.rock90.highscore,
         highscore80: snapVal.quiz.rock80.highscore,
         highscore70: snapVal.quiz.rock70.highscore,
+        photo: snapVal.user[user].photo,
       selfScore: {
         rock90: snapVal.user[user].quizzestaken.rock90.highscore,
         rock80: snapVal.user[user].quizzestaken.rock80.highscore,
@@ -58,9 +60,9 @@ class HighScores extends React.Component {
     let highscoreElementTwo;
     let highscoreElementThree
     if (this.state.highscore90 !== 0){
-      highscoreElementOne = <HighscoreEntries highscores={this.state.highscore90} selfScore={this.state.selfScore.rock90} rockKind="90s"/>
-      highscoreElementTwo = <HighscoreEntries highscores={this.state.highscore80} selfScore={this.state.selfScore.rock80} rockKind="80s"/>
-      highscoreElementThree = <HighscoreEntries highscores={this.state.highscore70} selfScore={this.state.selfScore.rock70} rockKind="70s"/>
+      highscoreElementOne = <HighscoreEntries photo={this.state.photo} highscores={this.state.highscore90} selfScore={this.state.selfScore.rock90} rockKind="90s"/>
+      highscoreElementTwo = <HighscoreEntries photo={this.state.photo} highscores={this.state.highscore80} selfScore={this.state.selfScore.rock80} rockKind="80s"/>
+      highscoreElementThree = <HighscoreEntries photo={this.state.photo} highscores={this.state.highscore70} selfScore={this.state.selfScore.rock70} rockKind="70s"/>
     } else {
       highscoreElementOne = <div> Error </div>
       highscoreElementTwo = <div> Error </div>
