@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { cL, tC } from 'react-classlist-helper';
+
 
 class Question extends React.Component {
   constructor(props) {
@@ -8,7 +10,11 @@ class Question extends React.Component {
       selectedOption: "",
       buttonTxt: "Submit",
       styleWrong: "",
-      styleCorrect: ""
+      styleCorrect: "",
+      flexOrderAlt1: 4,
+      flexOrderAlt2: 3,
+      flexOrderAlt3: 2,
+      flexOrderAlt4: 1
     })
   }
 
@@ -22,6 +28,7 @@ class Question extends React.Component {
       this.props.resultChange();
     //else buttonTxt === "Next"
     } else {
+      this.shuffleFlexOrder();
       this.props.callNextQuestion();
       this.hideCorrectAnswer();
       this.setState({
@@ -54,15 +61,15 @@ class Question extends React.Component {
 
   showCorrectAnswer = () => {
     this.setState({
-      styleWrong: "choice wrong",
-      styleCorrect: "choice correct"
+      styleWrong: "wrong",
+      styleCorrect: "correct"
     })
   }
 
   hideCorrectAnswer = () => {
     this.setState({
-      styleWrong: "choice",
-      styleCorrect: "choice"
+      styleWrong: "",
+      styleCorrect: ""
     })
   }
 
@@ -73,7 +80,16 @@ class Question extends React.Component {
     }
   }
 
-  shuffle = array => {
+  assignFlexOrder = val => {
+    return ({
+      flexOrder1: val === 1,
+      flexOrder2: val === 2,
+      flexOrder3: val === 3,
+      flexOrder4: val === 4
+    })
+  }
+
+  shuffleArr = array => {
     var m = array.length, t, i;
 
     // While there remain elements to shuffle…
@@ -91,8 +107,23 @@ class Question extends React.Component {
     return array;
   }
 
-  componentDidMount = ()  => {
+  shuffleFlexOrder = () => {
+    let arr = [1, 2, 3, 4];
+    let shuffledArr = this.shuffleArr(arr);
+    console.log(shuffledArr);
+
+    //set each flexOrderAlt state with numbers from 1 to 4
+    this.setState({
+      flexOrderAlt1: shuffledArr[0],
+      flexOrderAlt2: shuffledArr[1],
+      flexOrderAlt3: shuffledArr[2],
+      flexOrderAlt4: shuffledArr[3]
+    })
+  }
+
+  componentDidMount = () => {
     this.interval = setInterval(this.checkRemainingTime, 1000);
+    this.shuffleFlexOrder();
   }
 
   componentWillUnmount = () => {
@@ -100,9 +131,10 @@ class Question extends React.Component {
   }
 
   render() {
-    let altArray = [
-      (
-        <div>
+    return (
+      <div>
+        <h3>{this.props.questObj.question}</h3>
+        <div className="altDiv">
           <input
             type="radio"
             name="alts"
@@ -111,13 +143,9 @@ class Question extends React.Component {
             onChange={this.handleAltChange}
             />
           <label
-            className={this.state.styleCorrect}
+            className={cL("choice", this.state.styleCorrect, this.assignFlexOrder(this.state.flexOrderAlt1))}
             htmlFor="alt1">{this.props.questObj.answer}
           </label>
-        </div>
-      ),
-      (
-        <div>
           <input
             type="radio"
             name="alts"
@@ -126,13 +154,9 @@ class Question extends React.Component {
             onChange={this.handleAltChange}
             />
           <label
-            className={this.state.styleWrong}
+            className={cL("choice", this.state.styleWrong, this.assignFlexOrder(this.state.flexOrderAlt2))}
             htmlFor="alt2">{this.props.questObj.wrongAlts.alt1}
           </label>
-        </div>
-      ),
-      (
-        <div>
           <input
             type="radio"
             name="alts"
@@ -141,13 +165,9 @@ class Question extends React.Component {
             onChange={this.handleAltChange}
             />
           <label
-            className={this.state.styleWrong}
+            className={cL("choice", this.state.styleWrong, this.assignFlexOrder(this.state.flexOrderAlt3))}
             htmlFor="alt3">{this.props.questObj.wrongAlts.alt2}
           </label>
-        </div>
-      ),
-      (
-        <div>
           <input
             type="radio"
             name="alts"
@@ -156,21 +176,9 @@ class Question extends React.Component {
             onChange={this.handleAltChange}
             />
           <label
-            className={this.state.styleWrong}
+            className={cL("choice", this.state.styleWrong, this.assignFlexOrder(this.state.flexOrderAlt4))}
             htmlFor="alt4">{this.props.questObj.wrongAlts.alt3}
           </label>
-        </div>
-      )
-    ]
-    let shuffledArray = this.shuffle(altArray);
-    let mapArray = shuffledArray.map((item, index) =>
-      <div key={index}>{item}</div>
-    )
-    return (
-      <div>
-        <h3>{this.props.questObj.question}</h3>
-        <div className="altDiv">
-          {mapArray}
         </div>
         <input
           onClick={this.handleButton}
