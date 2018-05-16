@@ -80,10 +80,10 @@ const App = (props) => {
     const showLogin = () => {
         if(props.user !== null) {
             return (
-                <div>
-                    <NavLink to="/profile" className="nav">Profile</NavLink>
-                    <div className="nav" onClick={handleChange}>Logout</div>
-                </div>
+              <React.Fragment>
+                <NavLink to="/profile" className="nav profile">Profile</NavLink>
+                <div className="nav" onClick={handleChange}>Logout</div>
+              </React.Fragment>
             )
         } else {
             return (
