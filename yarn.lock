@@ -5640,6 +5640,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-classlist-helper@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-classlist-helper/-/react-classlist-helper-1.4.0.tgz#39df286c7360b476e1d9f9d85ca8620dc8986a3d"
+
 react-dev-utils@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-5.0.1.tgz#1f396e161fe44b595db1b186a40067289bf06613"

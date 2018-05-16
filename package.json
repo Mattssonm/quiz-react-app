@@ -5,6 +5,7 @@
   "dependencies": {
     "firebase": "4.6.2",
     "react": "^16.3.2",
+    "react-classlist-helper": "^1.4.0",
     "react-dom": "^16.3.2",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4"
