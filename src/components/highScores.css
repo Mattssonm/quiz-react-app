@@ -14,10 +14,14 @@
 .nameDiv {
   position: relative;
   right: 30px;
+  margin-bottom: 10px;
 }
 img {
   border-radius: 50%;
   width: 30px;
   height: 30px;
   margin-right: 10px;
+}
+.selfDiv {
+  border-top: 0.5px solid white;
 }

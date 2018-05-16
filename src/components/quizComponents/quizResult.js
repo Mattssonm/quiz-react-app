@@ -3,9 +3,19 @@ import quizResult from './quizResult.css';
 
 class QuizResult extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
+    this.state = {
+      username: "",
+    }
   }
 
+componentDidMount(){
+  this.props.firebase.ref().once("value", (snapshot) => {
+    this.setState({
+      username: snapshot.val().user[this.props.currentUser.uid].name,
+    })
+})
+}
   render() {
     if (this.props.currentUser == null){
       return (
@@ -32,6 +42,7 @@ class QuizResult extends React.Component {
     }
     //console.log(this.props.takenQuiz)
     this.props.firebase.ref().once("value", (snapshot) => {
+      let username = snapshot.val().user[user].name;
       if (this.props.totalPoints > snapshot.val().user[user].quizzestaken[takenQuiz].highscore){
         this.props.firebase.ref("/user/" + user + "/quizzestaken/" + takenQuiz + "/highscore/").set(this.props.totalPoints);
       }
@@ -40,7 +51,7 @@ class QuizResult extends React.Component {
         snapshot.val().quiz[takenQuiz].highscore.second,
         snapshot.val().quiz[takenQuiz].highscore.third,
         {
-          name: this.props.currentUser.displayName,
+          name: username,
           picture: this.props.currentUser.photoURL,
           points: this.props.totalPoints,
         }
@@ -51,7 +62,6 @@ class QuizResult extends React.Component {
         second: highScoresObj[2],
         third: highScoresObj[1],
       })
-      console.log(highScoresObj);
     })
     this.props.firebase.ref("/user/" + user + "/quizzestaken/" + takenQuiz).push({points: this.props.totalPoints,
     rightAnswers: this.props.rightAnswers})
@@ -60,7 +70,7 @@ class QuizResult extends React.Component {
         <div className="loggedInInfo">
           <img src={this.props.currentUser.photoURL} alt="Logged in pic here"/>
           <div>
-            {this.props.currentUser.displayName}
+            {this.state.username}
           </div>
         </div>
         <div className="totalPointsDiv">
