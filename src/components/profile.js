@@ -7,59 +7,107 @@ class Profile extends Component {
     photo: '',
     email: '',
     topScore70: '',
+    taken70: '',
     topScore80: '',
-    topScore90: ''
+    taken80: '',
+    topScore90: '',
+    taken90: '',
+    status: true
   }
 
-  
-   displayName = () =>{
-    if(this.props.user !== null){
-      this.setState=({
-        user: this.props.user,
-        photo: this.props.photoURL,
-        email: this.props.email
+   changeName = (e) => {
+     e.preventDefault();
+     
+      this.setState({
+        status: false
       })
 
-    } else {
-      
-      return "please login"
-    }
-  }
-   changeName = () => {
-
-    return (
-      <input type="text" value={this.state.user} onChange={this.handleChange}/>
-   )
-    
 
 }
-  updateName = () => {
+  updateName = (e) => {
+    e.preventDefault();
     let user = this.props.user.uid;
       firebaseDB.ref('/user/' + user).update({
         name: this.state.user})
         console.log('changed name')
+        this.setState({
+          status: true
+        })
   }
 
     handleChange = (event) => {
         this.setState({user: event.target.value});
-    
+
     }
     componentWillMount = () => {
       let user = this.props.user.uid;
       firebaseDB.ref('/user/').child(user).on('value', (snapshot) => {
         let obj = snapshot.val();
-        console.log(obj.photo)
-        this.setState=({
-          user: "albin",
+        //console.log(obj)
+        this.setState({
+          user: obj.name,
           photo: obj.photo,
           email: obj.email
         })
-        console.log(this.state)
       })
-      
+      firebaseDB.ref(`/user/${user}/quizzestaken/rock70/`).orderByChild("points").once('value', (snapshot) => {
+       let ohSnap = snapshot.val();
+       //console.log(ohSnap);
+       const data = [];
+        snapshot.forEach((childSnapshot)=>{
+         data.push({
+            ...childSnapshot.val(),
+            id:childSnapshot.key
+        })
+    });
+    const last = data[data.length - 1]
+    //console.log(last)
+    this.setState({
+      topScore70: last.points,
+      taken70: data.length-1
+    })
+    
+      })
+      firebaseDB.ref(`/user/${user}/quizzestaken/rock80/`).orderByChild("points").once('value', (snapshot) => {
+        let ohSnap = snapshot.val();
+        //console.log(ohSnap);
+        const data = [];
+         snapshot.forEach((childSnapshot)=>{
+          data.push({
+             ...childSnapshot.val(),
+             id:childSnapshot.key
+         })
+     });
+     const last = data[data.length - 1]
+     //console.log(last)
+     this.setState({
+       topScore80: last.points,
+       taken80: data.length-1
+     })
+     
+       })
+       firebaseDB.ref(`/user/${user}/quizzestaken/rock90/`).orderByChild("points").once('value', (snapshot) => {
+        let ohSnap = snapshot.val();
+        //console.log(ohSnap);
+        const data = [];
+         snapshot.forEach((childSnapshot)=>{
+          data.push({
+             ...childSnapshot.val(),
+             id:childSnapshot.key
+         })
+     });
+     const last = data[data.length - 1]
+     //console.log(last)
+     this.setState({
+       topScore90: last.points,
+       taken90: data.length-1
+     })
+     
+       })
     }
+
     componentWillUnmount = () => {
-      this.setState=({
+      this.setState({
         photo: '',
         user: '',
         email: ''
@@ -69,6 +117,7 @@ class Profile extends Component {
   render() {
     //console.log(this.state.user)
     return (
+      <div>
       <div className="wrapper">
           <form className="myForm">
              <div className="message">
@@ -76,33 +125,50 @@ class Profile extends Component {
                 <img src={this.state.photo} alt="avatar"/>
             </div>
             <div className="contact">
-              <div>Name</div>
-              <p onClick={this.changeName}>Jonas</p>
-    
-              <button onClick={this.updateName}>Change name</button>
+            <div>Name</div>
+            { this.state.status ? (
+                      <div>
+                      <p>{this.state.user}</p>
+                      <button onClick={ this.changeName }> Change name </button>
+                      </div>
+                    ) :
+                    <div>
+                    <input type="text" value={this.state.user} onChange={this.handleChange}/>
+                    <button onClick={ this.updateName }> Update </button>
+                    </div>
+                }
+              
               <br />
               Email
              <div>{this.state.email}</div>
             </div>
-            
-              </form> 
-{/*               <div className="highScore">HighScore
+
+              </form>
+
+      </div>
+      <div className="wrapper">
+      <div className="highScore">
+        <span>HighScore</span>
                 <div>90's Rock</div>
                   <ul>
-                    <li>Topscore: 0  Quizzez Taken: 2134</li>
+                    <li>Topscore: {this.state.topScore90}  </li>
                     <li>Rank: 120</li>
+                    <li>Quizzez Taken: {this.state.taken90}</li>
                   </ul>
                   <div>80's Rock</div>
                   <ul>
-                    <li>Topscore: 5  Quizzez Taken: 0</li>
+                    <li>Topscore: {this.state.topScore80} </li>
                     <li>Unranked</li>
+                    <li>Quizzez Taken: {this.state.taken80}</li>
                   </ul>
                   <div>70's Rock</div>
                   <ul>
-                    <li>Topscore: 0  Quizzez Taken: 2134</li>
+                    <li>Topscore: {this.state.topScore70}  </li>
                     <li>Rank: 120</li>
-                  </ul>   
-                  </div> */}
+                    <li>Quizzez Taken: {this.state.taken70}</li>
+                  </ul>
+                  </div>
+      </div>
       </div>
     );
   }
