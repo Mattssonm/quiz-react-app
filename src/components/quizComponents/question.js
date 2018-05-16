@@ -110,7 +110,6 @@ class Question extends React.Component {
   shuffleFlexOrder = () => {
     let arr = [1, 2, 3, 4];
     let shuffledArr = this.shuffleArr(arr);
-    console.log(shuffledArr);
 
     //set each flexOrderAlt state with numbers from 1 to 4
     this.setState({
