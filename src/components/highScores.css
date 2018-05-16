@@ -11,16 +11,13 @@
   flex-direction: row;
   width: 70%;
 }
-div {
-  border: 1px solid white;
+.nameDiv {
+  position: relative;
+  right: 30px;
 }
 img {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  float: left;
   margin-right: 10px;
-}
-.nameDiv {
-  font-size: 0.7em;
 }

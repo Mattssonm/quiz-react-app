@@ -13,7 +13,7 @@ class HighscoreEntries extends React.Component {
               {this.props.highscores.first.name}
             </div>
             <div className = "pointDiv">
-            points: {this.props.highscores.first.points}
+            Points: {this.props.highscores.first.points}
             </div>
           </div>
           <div className = "highScoreOne">
@@ -22,7 +22,7 @@ class HighscoreEntries extends React.Component {
               {this.props.highscores.second.name}
             </div>
             <div className = "pointDiv">
-            points: {this.props.highscores.second.points}
+            Points: {this.props.highscores.second.points}
             </div>
           </div>
           <div className = "highScoreOne">
@@ -31,7 +31,7 @@ class HighscoreEntries extends React.Component {
               {this.props.highscores.third.name}
             </div>
             <div className = "pointDiv">
-            points: {this.props.highscores.third.points}
+            Points: {this.props.highscores.third.points}
             </div>
           </div>
           <div className = "selfDiv">
