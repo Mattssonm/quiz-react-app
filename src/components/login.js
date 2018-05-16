@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebase, googleAuth, firebaseDB } from '../firebase';
+import { firebase } from '../firebase';
 
 class Login extends Component {
 
@@ -13,9 +13,9 @@ class Login extends Component {
     }
 
     signIn = () => {
-    
-        
-       
+
+
+
     }
 
     signOut = () => {
@@ -32,7 +32,7 @@ class Login extends Component {
                  user
              })
          }
-        
+
         })
     }
 
@@ -47,7 +47,7 @@ class Login extends Component {
                     :
                     <button onClick={ this.signIn }> Login </button>
                 }
-                
+
             </div>
         )
     }

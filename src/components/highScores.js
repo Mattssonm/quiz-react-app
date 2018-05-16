@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import highScores from './highScores.css'
+import React from 'react';
+import './highScores.css'
 import HighscoreEntries from './highscoreEntries';
 import { firebase, firebaseDB } from '../firebase';
 
@@ -24,7 +24,6 @@ class HighScores extends React.Component {
     if (firebase.auth().currentUser !== null){
       user = firebase.auth().currentUser.uid;
       firebaseDB.ref('user/' + user).once('value', (snapshot) => {
-        var snapVal = snapshot.val();
         //this.setState({selfScore: {rock90: snapVal.quizzestaken.rock90.highscore, rock80: snapVal.quizzestaken.rock80.highscore, rock70: snapVal.quizzestaken.rock70.highscore}})
       })
     }

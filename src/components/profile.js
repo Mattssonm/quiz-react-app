@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebase, firebaseDB } from '../firebase';
+import { firebaseDB } from '../firebase';
 import './profile.css';
 class Profile extends Component {
   state = {
@@ -17,7 +17,7 @@ class Profile extends Component {
 
    changeName = (e) => {
      e.preventDefault();
-     
+
       this.setState({
         status: false
       })
@@ -51,7 +51,6 @@ class Profile extends Component {
         })
       })
       firebaseDB.ref(`/user/${user}/quizzestaken/rock70/`).orderByChild("points").once('value', (snapshot) => {
-       let ohSnap = snapshot.val();
        //console.log(ohSnap);
        const data = [];
         snapshot.forEach((childSnapshot)=>{
@@ -66,10 +65,9 @@ class Profile extends Component {
       topScore70: last.points,
       taken70: data.length-1
     })
-    
+
       })
       firebaseDB.ref(`/user/${user}/quizzestaken/rock80/`).orderByChild("points").once('value', (snapshot) => {
-        let ohSnap = snapshot.val();
         //console.log(ohSnap);
         const data = [];
          snapshot.forEach((childSnapshot)=>{
@@ -84,10 +82,9 @@ class Profile extends Component {
        topScore80: last.points,
        taken80: data.length-1
      })
-     
+
        })
        firebaseDB.ref(`/user/${user}/quizzestaken/rock90/`).orderByChild("points").once('value', (snapshot) => {
-        let ohSnap = snapshot.val();
         //console.log(ohSnap);
         const data = [];
          snapshot.forEach((childSnapshot)=>{
@@ -102,7 +99,7 @@ class Profile extends Component {
        topScore90: last.points,
        taken90: data.length-1
      })
-     
+
        })
     }
 
@@ -137,7 +134,7 @@ class Profile extends Component {
                     <button onClick={ this.updateName }> Update </button>
                     </div>
                 }
-              
+
               <br />
               Email
              <div>{this.state.email}</div>
@@ -152,19 +149,16 @@ class Profile extends Component {
                 <div>90's Rock</div>
                   <ul>
                     <li>Topscore: {this.state.topScore90}  </li>
-                    <li>Rank: 120</li>
                     <li>Quizzez Taken: {this.state.taken90}</li>
                   </ul>
                   <div>80's Rock</div>
                   <ul>
                     <li>Topscore: {this.state.topScore80} </li>
-                    <li>Unranked</li>
                     <li>Quizzez Taken: {this.state.taken80}</li>
                   </ul>
                   <div>70's Rock</div>
                   <ul>
                     <li>Topscore: {this.state.topScore70}  </li>
-                    <li>Rank: 120</li>
                     <li>Quizzez Taken: {this.state.taken70}</li>
                   </ul>
                   </div>

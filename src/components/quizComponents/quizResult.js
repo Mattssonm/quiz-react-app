@@ -1,9 +1,6 @@
 import React from 'react';
 
 class QuizResult extends React.Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     if (this.props.currentUser == null){

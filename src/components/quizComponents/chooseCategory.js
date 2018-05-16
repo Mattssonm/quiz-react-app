@@ -1,9 +1,6 @@
 import React from 'react';
 
 class ChooseCategory extends React.Component {
-  constructor(props){
-    super(props)
-  }
 
   clickHandler = event => {
     let eventTarget = event.target.innerHTML;

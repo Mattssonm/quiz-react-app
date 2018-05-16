@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 class HighscoreEntries extends React.Component {
-  constructor(props){
-    super(props);
-  }
+
   render(){
     return (
         <div className = "highContainer"> {this.props.rockKind} Rock Highscores
