@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { firebase, firebaseDB } from '../firebase';
+import { firebaseDB } from '../firebase';
 import './profile.css';
 class Profile extends Component {
   state = {
@@ -51,7 +51,6 @@ class Profile extends Component {
         })
       })
       firebaseDB.ref(`/user/${user}/quizzestaken/rock70/`).orderByChild("points").once('value', (snapshot) => {
-       let ohSnap = snapshot.val();
        //console.log(ohSnap);
        const data = [];
         snapshot.forEach((childSnapshot)=>{
@@ -69,7 +68,6 @@ class Profile extends Component {
 
       })
       firebaseDB.ref(`/user/${user}/quizzestaken/rock80/`).orderByChild("points").once('value', (snapshot) => {
-        let ohSnap = snapshot.val();
         //console.log(ohSnap);
         const data = [];
          snapshot.forEach((childSnapshot)=>{
@@ -87,7 +85,6 @@ class Profile extends Component {
 
        })
        firebaseDB.ref(`/user/${user}/quizzestaken/rock90/`).orderByChild("points").once('value', (snapshot) => {
-        let ohSnap = snapshot.val();
         //console.log(ohSnap);
         const data = [];
          snapshot.forEach((childSnapshot)=>{
@@ -152,19 +149,16 @@ class Profile extends Component {
                 <div>90's Rock</div>
                   <ul>
                     <li>Topscore: {this.state.topScore90}  </li>
-                    <li>Rank: 120</li>
                     <li>Quizzez Taken: {this.state.taken90}</li>
                   </ul>
                   <div>80's Rock</div>
                   <ul>
                     <li>Topscore: {this.state.topScore80} </li>
-                    <li>Unranked</li>
                     <li>Quizzez Taken: {this.state.taken80}</li>
                   </ul>
                   <div>70's Rock</div>
                   <ul>
                     <li>Topscore: {this.state.topScore70}  </li>
-                    <li>Rank: 120</li>
                     <li>Quizzez Taken: {this.state.taken70}</li>
                   </ul>
                   </div>

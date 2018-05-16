@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { cL, tC } from 'react-classlist-helper';
+import { cL } from 'react-classlist-helper';
 
 
 class Question extends React.Component {

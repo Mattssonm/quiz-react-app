@@ -1,5 +1,5 @@
 import React from 'react';
-import highScores from './highScores.css'
+import './highScores.css'
 import HighscoreEntries from './highscoreEntries';
 import { firebase, firebaseDB } from '../firebase';
 

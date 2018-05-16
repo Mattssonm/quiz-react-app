@@ -16,11 +16,6 @@ import Profile from './components/profile';
 import Login from './components/login';
 
 const App = (props) => {
-    this.state = {
-        allUsers: [],
-        id: ''
-    }
-
     const handleChange = (e) => {
         e.preventDefault();
 
